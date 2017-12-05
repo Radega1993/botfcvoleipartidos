@@ -1,20 +1,29 @@
-#-*
+# -*- coding: utf-8 -*-
 
-import telebot # Importamos las librería
+# import libraries
+import telebot
+from telebot import types
 
-TOKEN = '495586156:AAGkSobt7tgtYaS6ug2-BdIfUgCgntnwvzY' # Ponemos nuestro Token generado con el @BotFather
+import urllib2
+from bs4 import BeautifulSoup
 
-tb = telebot.TeleBot(TOKEN) # Combinamos la declaración del Token con la función de la API
+# token from the librari
+TOKEN = ''
 
-@tb.message_handler(commands=['start', 'help'])
+tb = telebot.TeleBot(TOKEN) 
+
+@bot.message_handler(commands=['start'])
 def send_welcome(message):
-	tb.reply_to(message, "Howdy, how are you doing?")
+	bot.reply_to(message, "Bienvenido, espero poder ser de mucha ayuda!")
 
-@tb.message_handler(func=lambda message: True)
-def echo_all(message):
-	tb.reply_to(message, message.text)
+@tb.message_handler(commands=['hola'])
+def comando_hola(mensaje):
+    chat_id = mensaje.chat.id
+    tb.send_message(chat_id, 'Hola compañero')
 
-tb.polling()
+@tb.message_handler(commands=['chao'])
+def comando_chao(mensaje):
+    chat_id = mensaje.chat.id
+    tb.send_message(chat_id, 'Adios colega')
 
-while True:
-	pass
+tb.polling(none_stop = True)
