@@ -9,13 +9,9 @@ def jornadaCadeteA():
 	page.close()
 	soup = BeautifulSoup(pageHtml, "lxml")
 
-
-
-
 	name_box = soup.find('div', attrs={'id':'nombre_competicion'})
 	jornada_box = soup.find('div', attrs={'id':'jornada_numero'})
 	tabla_box = soup.find('div', attrs={'class':'resultados'})
-
 
 	name = name_box.text.strip()
 	jornada = jornada_box.text.strip()
@@ -23,11 +19,11 @@ def jornadaCadeteA():
 
 	msg = ""
 	msg += name + '\n'
-	
+
 	msg += jornada + '\n'
 
 	lista = tabla.split("  ")[8:]
-	
+
 	for element in lista:
 		msg += element + '\n'
 
