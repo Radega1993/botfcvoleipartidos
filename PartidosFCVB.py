@@ -105,6 +105,8 @@ markup.row(itembtncad, itembtnjuv)
 markup.row(itembtnsen, itembtnmas)
 tb.send_message(chat_id, "Escull un equip:", reply_markup=markup)
 
+#REVISAR
+#https://github.com/eternnoir/pyTelegramBotAPI/blob/master/examples/inline_keyboard_example.py
 
 
 tb.polling(none_stop = True)
