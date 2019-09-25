@@ -1,2 +1,2 @@
-pyTelegramBotAPI
-BeautifulSoup
+python-telegram-bot
+beautifulsoup4
