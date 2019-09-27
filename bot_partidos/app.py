@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 # import libraries
-from telegram.ext import Updater, MessageHandler, Filters
+from telegram.ext import Updater, MessageHandler, Filters, ConversationHandler
 from telegram.ext import CommandHandler, CallbackQueryHandler
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Bot
+from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, Bot,
+                        ReplyKeyboardRemove)
 #imports de las webs
 from resources.getInfo import get_info
 from config.auth import get_token
@@ -11,7 +12,7 @@ import logging
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
-logger = logging.getLogger('listaasistencia_bot')
+logger = logging.getLogger(__name__)
 
 
 ############################### Bot ############################################
@@ -68,6 +69,11 @@ def master_menu(bot, update):
                         text=equip_menu_message(),
                         reply_markup=master_menu_keyboard())
 
+def print_data(bot, update):
+  logger.info('test')
+  jornada = get_info()
+  bot.send_message(chat_id=chat_id, text=jornada)
+  update.message.reply_text(jornada, reply_markup=ReplyKeyboardRemove())
 
 ############################ Keyboards #########################################
 def main_menu_keyboard():
@@ -86,15 +92,16 @@ def escola_menu_keyboard():
   return InlineKeyboardMarkup(keyboard)
 
 def infantil_menu_keyboard():
-  keyboard = [[InlineKeyboardButton('Submenu 2-1', callback_data='m2_1')],
-              [InlineKeyboardButton('Submenu 2-2', callback_data='m2_2')],
+  keyboard = [[InlineKeyboardButton('Infantil Negre', callback_data='cb_infn')],
+              [InlineKeyboardButton('Infantil Verd', callback_data='cb_infv')],
+              [InlineKeyboardButton('Infantil Blanc', callback_data='cb_infb')],
               [InlineKeyboardButton('Main menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
 def cadet_menu_keyboard():
   keyboard = [[InlineKeyboardButton('Cadet Negre', callback_data='cb_cadn')],
               [InlineKeyboardButton('Cadet Verd', callback_data='cb_cadv')],
-              [InlineKeyboardButton('Cadet blanc', callback_data='cb_cadb')]
+              [InlineKeyboardButton('Cadet blanc', callback_data='cb_cadb')],
               [InlineKeyboardButton('Main Menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
@@ -106,13 +113,13 @@ def juvenil_menu_keyboard():
     return InlineKeyboardMarkup(keyboard)
 
 def senior_menu_keyboard():
-    keyboard = [[InlineKeyboardButton('femení', callback_data='m2_1')]
+    keyboard = [[InlineKeyboardButton('femení', callback_data='cb_sen')],
                 [InlineKeyboardButton('Main menu', callback_data='main')]]
     return InlineKeyboardMarkup(keyboard)
 
 def master_menu_keyboard():
-    keyboard = [[InlineKeyboardButton('Submenu 2-1', callback_data='m2_1')],
-                [InlineKeyboardButton('Submenu 2-2', callback_data='m2_2')],
+    keyboard = [[InlineKeyboardButton('Veterans', callback_data='cb_vet')],
+                [InlineKeyboardButton('Masters', callback_data='cb_mas')],
                 [InlineKeyboardButton('Main menu', callback_data='main')]]
     return InlineKeyboardMarkup(keyboard)
 
@@ -125,29 +132,40 @@ def equip_menu_message():
   return 'Escull equip?"'
 
 
+
 ############################# Handlers #########################################
-token = get_token()
-updater = Updater(token, use_context=True)
+def main():
+    # Create the Updater and pass it your bot's token.
+    # Make sure to set use_context=True to use the new context based callbacks
+    # Post version 12 this will no longer be necessary
+    token = get_token()
+    updater = Updater(token)
 
-updater.dispatcher.add_handler(CommandHandler('start', start))
-updater.dispatcher.add_handler(CallbackQueryHandler(main_menu, pattern='main'))
-updater.dispatcher.add_handler(CallbackQueryHandler(escola_menu, pattern='m1'))
-updater.dispatcher.add_handler(CallbackQueryHandler(infantil_menu, pattern='m2'))
-updater.dispatcher.add_handler(CallbackQueryHandler(cadet_menu, pattern='m3'))
-updater.dispatcher.add_handler(CallbackQueryHandler(juvenil_menu, pattern='m4'))
-updater.dispatcher.add_handler(CallbackQueryHandler(senior_menu, pattern='m5'))
-updater.dispatcher.add_handler(CallbackQueryHandler(master_menu, pattern='m6'))
+    updater.dispatcher.add_handler(CommandHandler('start', start))
+    updater.dispatcher.add_handler(CallbackQueryHandler(main_menu,
+                                                            pattern='main'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(escola_menu,
+                                                            pattern='cb_escola'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(infantil_menu,
+                                                            pattern='cb_infantil'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(cadet_menu,
+                                                            pattern='cb_cadet'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(juvenil_menu,
+                                                            pattern='cb_juvenil'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(senior_menu,
+                                                            pattern='cb_senior'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(master_menu,
+                                                            pattern='cb_master'))
 
-def error(bot, update):
-    """Log Errors caused by Updates."""
-    logger.warning('Update "%s" caused error "%s"', bot, update.error)
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data,
+                                                            pattern='cb_cadv'))
 
 
-# log all errors
-updater.dispatcher.add_error_handler(error)
+    updater.start_polling()
+    # Run the bot until you press Ctrl-C or the process receives SIGINT,
+    # SIGTERM or SIGABRT. This should be used most of the time, since
+    # start_polling() is non-blocking and will stop the bot gracefully.
+    updater.idle()
 
-updater.start_polling()
-# Run the bot until you press Ctrl-C or the process receives SIGINT,
-# SIGTERM or SIGABRT. This should be used most of the time, since
-# start_polling() is non-blocking and will stop the bot gracefully.
-updater.idle()
+if __name__ == '__main__':
+    main()

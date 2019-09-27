@@ -1,14 +1,20 @@
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
-def get_info(equipo):
-    equipo = 'http://competicio.fcvoleibol.cat/competiciones.asp?v=18&torneo=2359'
+def get_info():
+    equipo = 'http://competicio.fcvoleibol.cat/competiciones.asp?v=18&torneo=4092'
 
-    page = urllib2.urlopen(equipo)
+
+    page = urlopen(equipo)
     pageHtml = page.read()
     page.close()
-    soup = BeautifulSoup(pageHtml, "lxml")
+    #soup = BeautifulSoup(pageHtml, "xml")
+    soup = BeautifulSoup(pageHtml, 'html.parser')
 
+    print(soup.prettify())
+
+    print(soup.find_all('CV SANT QUIRZE BLANC'))
+    '''
     name_box = soup.find('div', attrs={'id':'nombre_competicion'})
     jornada_box = soup.find('div', attrs={'id':'jornada_numero'})
     tabla_box = soup.find('div', attrs={'class':'resultados'})
@@ -29,3 +35,5 @@ def get_info(equipo):
         msg += element + '\n'
 
     return msg
+    '''
+get_info()
