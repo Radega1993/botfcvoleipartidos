@@ -3,10 +3,11 @@
 # import libraries
 from telegram.ext import Updater, MessageHandler, Filters, ConversationHandler
 from telegram.ext import CommandHandler, CallbackQueryHandler
-from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, Bot,
-                        ReplyKeyboardRemove)
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Bot, ReplyKeyboardRemove
+#import telegram
 #imports de las webs
-from resources.getInfo import get_info
+#from resources.getInfo import get_info
+from resources.geturl import get_url
 from config.auth import get_token
 import logging
 
@@ -70,10 +71,12 @@ def master_menu(bot, update):
                         reply_markup=master_menu_keyboard())
 
 def print_data(bot, update):
-  logger.info('test')
-  jornada = get_info()
-  bot.send_message(chat_id=chat_id, text=jornada)
-  update.message.reply_text(jornada, reply_markup=ReplyKeyboardRemove())
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(),
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
 
 ############################ Keyboards #########################################
 def main_menu_keyboard():
@@ -86,8 +89,8 @@ def main_menu_keyboard():
   return InlineKeyboardMarkup(keyboard)
 
 def escola_menu_keyboard():
-  keyboard = [[InlineKeyboardButton('Submenu 1-1', callback_data='m1_1')],
-              [InlineKeyboardButton('Submenu 1-2', callback_data='m1_2')],
+  keyboard = [[InlineKeyboardButton('Aleví Negre', callback_data='cb_alen')],
+              [InlineKeyboardButton('Aleví Verd', callback_data='cb_alev')],
               [InlineKeyboardButton('Main menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
@@ -95,20 +98,21 @@ def infantil_menu_keyboard():
   keyboard = [[InlineKeyboardButton('Infantil Negre', callback_data='cb_infn')],
               [InlineKeyboardButton('Infantil Verd', callback_data='cb_infv')],
               [InlineKeyboardButton('Infantil Blanc', callback_data='cb_infb')],
+              [InlineKeyboardButton('Infantil Vermell', callback_data='cb_infr')],
               [InlineKeyboardButton('Main menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
 def cadet_menu_keyboard():
   keyboard = [[InlineKeyboardButton('Cadet Negre', callback_data='cb_cadn')],
               [InlineKeyboardButton('Cadet Verd', callback_data='cb_cadv')],
-              [InlineKeyboardButton('Cadet blanc', callback_data='cb_cadb')],
+              [InlineKeyboardButton('Cadet Blanc', callback_data='cb_cadb')],
               [InlineKeyboardButton('Main Menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
 def juvenil_menu_keyboard():
     keyboard = [[InlineKeyboardButton('Juvenil Negre', callback_data='cb_juvn')],
                 [InlineKeyboardButton('Juvenil Verd', callback_data='cb_juvv')],
-                [InlineKeyboardButton('Juvenil blanc', callback_data='cb_juvb')],
+                [InlineKeyboardButton('Juvenil Blanc', callback_data='cb_juvb')],
                 [InlineKeyboardButton('Main Menu', callback_data='main')]]
     return InlineKeyboardMarkup(keyboard)
 
@@ -130,8 +134,6 @@ def main_menu_message():
 
 def equip_menu_message():
   return 'Escull equip?"'
-
-
 
 ############################# Handlers #########################################
 def main():
