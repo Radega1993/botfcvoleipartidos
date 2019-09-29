@@ -7,11 +7,9 @@ TAG_RE = re.compile(r'<[^>]+>')
 def remove_tags(text):
     return TAG_RE.sub('', text)
 
-def get_info():
-    req = requests.get('http://competicio.fcvoleibol.cat/competiciones.asp?v=18&torneo=4092')
-    #equipo = 'http://competicio.fcvoleibol.cat/competiciones.asp?v=18&torneo=4092'
+def get_info(url):
+    req = requests.get(url)
 
-    #soup = BeautifulSoup(pageHtml, "xml")
     soup = BeautifulSoup(req.text, 'html.parser')
 
     header = soup.div.h2

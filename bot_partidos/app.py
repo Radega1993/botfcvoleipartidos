@@ -7,7 +7,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Bot, ReplyKeybo
 import telegram
 #imports de las webs
 from resources.getInfo import get_info
-from resources.geturl import get_url
+from resources.getUrl import get_url
 from config.auth import get_token
 import logging
 
@@ -70,11 +70,127 @@ def master_menu(bot, update):
                         text=equip_menu_message(),
                         reply_markup=master_menu_keyboard())
 
-def print_data(bot, update):
+
+############################ PRINT FUNCTIONS ###################################
+
+def print_data_alen(bot, update):
+    equipo = 'alen'
     query = update.callback_query
     bot.send_message(chat_id=query.message.chat_id,
                           message_id=query.message.message_id,
-                          text=get_info(),
+                          text="Sense dades encara",
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_alev(bot, update):
+    equipo = 'alev'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text="Sense dades encara",
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_infn(bot, update):
+    equipo = 'infn'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(equipo),
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_infv(bot, update):
+    equipo = 'infv'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(equipo),
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_infb(bot, update):
+    equipo = 'infb'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(equipo),
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_infr(bot, update):
+    equipo = 'infr'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(equipo),
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_cadn(bot, update):
+    equipo = 'cadn'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(equipo),
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_cadv(bot, update):
+    equipo = 'cadv'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(equipo),
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_cadb(bot, update):
+    equipo = 'cadb'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(equipo),
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_juvn(bot, update):
+    equipo = 'juvn'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(equipo),
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_juvv(bot, update):
+    equipo = 'juvv'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(equipo),
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_juvb(bot, update):
+    equipo = 'juvb'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(equipo),
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_sen(bot, update):
+    equipo = 'sen'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(equipo),
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_vet(bot, update):
+    equipo = 'vet'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(equipo),
+                          reply_markup=telegram.ReplyKeyboardRemove())
+
+def print_data_mas(bot, update):
+    equipo = 'mas'
+    query = update.callback_query
+    bot.send_message(chat_id=query.message.chat_id,
+                          message_id=query.message.message_id,
+                          text=get_url(equipo),
                           reply_markup=telegram.ReplyKeyboardRemove())
 
 
@@ -159,8 +275,44 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(master_menu,
                                                             pattern='cb_master'))
 
-    updater.dispatcher.add_handler(CallbackQueryHandler(print_data,
+######################### PRINT DATA ###########################################
+
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_alen,
+                                                            pattern='cb_alen'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_alev,
+                                                        pattern='cb_alev'))
+
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_infn,
+                                                            pattern='cb_infn'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_infv,
+                                                            pattern='cb_infv'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_infb,
+                                                        pattern='cb_infb'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_infr,
+                                                            pattern='cb_infr'))
+
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_cadn,
+                                                            pattern='cb_cadn'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_cadv,
+                                                        pattern='cb_cadv'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_cadb,
                                                             pattern='cb_cadb'))
+
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_juvn,
+                                                            pattern='cb_juvn'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_juvv,
+                                                        pattern='cb_juvv'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_juvb,
+                                                            pattern='cb_juvb'))
+
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_sen,
+                                                            pattern='cb_sen'))
+
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_vet,
+                                                        pattern='cb_vet'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_mas,
+                                                            pattern='cb_mas'))
+
 
 
     updater.start_polling()
