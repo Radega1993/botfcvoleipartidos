@@ -4,9 +4,9 @@
 from telegram.ext import Updater, MessageHandler, Filters, ConversationHandler
 from telegram.ext import CommandHandler, CallbackQueryHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Bot, ReplyKeyboardRemove
-#import telegram
+import telegram
 #imports de las webs
-#from resources.getInfo import get_info
+from resources.getInfo import get_info
 from resources.geturl import get_url
 from config.auth import get_token
 import logging
@@ -74,7 +74,7 @@ def print_data(bot, update):
     query = update.callback_query
     bot.send_message(chat_id=query.message.chat_id,
                           message_id=query.message.message_id,
-                          text=get_url(),
+                          text=get_info(),
                           reply_markup=telegram.ReplyKeyboardRemove())
 
 
@@ -160,7 +160,7 @@ def main():
                                                             pattern='cb_master'))
 
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data,
-                                                            pattern='cb_cadv'))
+                                                            pattern='cb_cadb'))
 
 
     updater.start_polling()
