@@ -28,15 +28,12 @@ def get_info(url):
         data.append([ele for ele in cols if ele])
 
     del data[0]
-
+    dataSQV = []
     for element in data:
         if len(element) > 3:
             if 'SANT QUIRZE' in str(element[0]) or 'SANT QUIRZE' in str(element[1]):
-                local = element[0]
-                visitante = element[1]
-                dia = element[2]
-                hora = element[3]
-                lugar = element[4]
+                dataSQV.append(element)
+
 
 
     msg = ""
@@ -45,10 +42,11 @@ def get_info(url):
     msg += remove_tags(grupo) + '\n'
     msg += remove_tags(numero_jornada) + '\n \n'
 
-    msg += 'Local: '+ remove_tags(local) + '\n'
-    msg += 'Visitant: '+ remove_tags(visitante) + '\n'
-    msg += 'Día: '+ remove_tags(dia) + '\n'
-    msg += 'Hora: '+ remove_tags(hora) + '\n'
-    msg += 'Lloc: '+ remove_tags(lugar) + '\n'
+    for element in dataSQV:
+        msg += 'Local: '+ element[0] + '\n'
+        msg += 'Visitant: '+ element[1] + '\n'
+        msg += 'Día: '+ element[2] + '\n'
+        msg += 'Hora: '+ element[3] + '\n'
+        msg += 'Lloc: '+ element[4] + '\n \n'
 
     return msg
