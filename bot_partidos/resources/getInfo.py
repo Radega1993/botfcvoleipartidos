@@ -16,8 +16,10 @@ def get_info(url):
     nombre_liga, categoria, fase, grupo, vuelta = str(header).split('<br/>', 4)
 
     jornada_box = soup.find("div", attrs={'id':'jornada_numero'})
-    numero_jornada, date = str(jornada_box).split('<br/>', 4)
-
+    try:
+        numero_jornada, date = str(jornada_box).split('<br/>', 4)
+    except:
+        return "Horaris no publicats encara"
     data = []
     tabla_box = soup.find('div', attrs={'class':'resultados'})
 

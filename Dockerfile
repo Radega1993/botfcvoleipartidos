@@ -9,9 +9,13 @@ RUN apk add --update --no-cache --virtual .build-deps \
     gcc \
     build-base \
     libffi-dev \
-    openssl-dev
-RUN pip install --install-option="--prefix=/install" -r /requirements.txt
+    openssl-dev \
+    libxml2-dev \
+    libxslt-dev
+   
+RUN pip install python-telegram-bot beautifulsoup4 lxml requests python-dateutil
+
 
 COPY . /app
-RUN make /app
-CMD python /app/app.py
+WORKDIR /app
+CMD python bot_partidos/app.py

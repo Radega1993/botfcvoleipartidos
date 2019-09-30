@@ -7,7 +7,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Bot, ReplyKeybo
 import telegram
 #imports de las webs
 from resources.getInfo import get_info
-from resources.getUrl import get_url
+from resources.getUrl import get_url, get_all_data
 from config.auth import get_token
 import logging
 
@@ -251,6 +251,11 @@ def main_menu_message():
 def equip_menu_message():
   return 'Escull equip?"'
 
+def tots_els_partits(bot, update):
+    bot.sendChatAction(chat_id=update.message.chat_id,
+                        action = telegram.ChatAction.TYPING)
+    bot.send_message(chat_id=update.message.chat_id, text=get_all_data())
+
 ############################# Handlers #########################################
 def main():
     # Create the Updater and pass it your bot's token.
@@ -313,6 +318,7 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_mas,
                                                             pattern='cb_mas'))
 
+    updater.dispatcher.add_handler(CommandHandler('tots_els_partits', tots_els_partits))
 
 
     updater.start_polling()
