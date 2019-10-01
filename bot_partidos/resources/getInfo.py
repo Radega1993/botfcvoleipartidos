@@ -9,17 +9,23 @@ def remove_tags(text):
 
 def get_info(url):
     req = requests.get(url)
+    errorjornada = ['no data','no data','no data','no data','no data']
 
     soup = BeautifulSoup(req.text, 'html.parser')
 
     header = soup.div.h2
-    nombre_liga, categoria, fase, grupo, vuelta = str(header).split('<br/>', 4)
-
+    try:
+        nombre_liga, categoria, fase, grupo, vuelta = str(header).split('<br/>', 4)
+    except:
+        data.append(errorjornada)
+        
     jornada_box = soup.find("div", attrs={'id':'jornada_numero'})
     try:
         numero_jornada, date = str(jornada_box).split('<br/>', 4)
     except:
-        return "Horaris no publicats encara"
+        numero_jornada = "Horaris no publicats encara"
+        date = "Horaris no publicats encara"
+
     data = []
     tabla_box = soup.find('div', attrs={'class':'resultados'})
 
@@ -35,8 +41,6 @@ def get_info(url):
         if len(element) > 3:
             if 'SANT QUIRZE' in str(element[0]) or 'SANT QUIRZE' in str(element[1]):
                 dataSQV.append(element)
-
-
 
     msg = ""
 
