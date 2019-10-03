@@ -18,7 +18,7 @@ def get_info(url):
         nombre_liga, categoria, fase, grupo, vuelta = str(header).split('<br/>', 4)
     except:
         data.append(errorjornada)
-        
+
     jornada_box = soup.find("div", attrs={'id':'jornada_numero'})
     try:
         numero_jornada, date = str(jornada_box).split('<br/>', 4)
@@ -40,6 +40,16 @@ def get_info(url):
     for element in data:
         if len(element) > 3:
             if 'SANT QUIRZE' in str(element[0]) or 'SANT QUIRZE' in str(element[1]):
+                if len(element) < 1:
+                    element.insert(0, 'No data')
+                if len(element) < 2:
+                    element.insert(1, 'No data')
+                if len(element) < 3:
+                    element.insert(2, 'No data')
+                if len(element) < 4:
+                    element.insert(3, 'No data')
+                if len(element) < 5:
+                    element.insert(4, 'No data')
                 dataSQV.append(element)
 
     msg = ""
