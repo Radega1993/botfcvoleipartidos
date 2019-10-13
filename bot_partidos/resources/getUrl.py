@@ -39,7 +39,19 @@ def get_jornada(jornada):
 
 def get_url(equipo):
     jornada = 1
-    if equipo == 'infn':
+    if equipo == 'alen':
+        jornada = get_jornada(jornada)
+        url = 'http://competicio.fcvoleibol.cat/competiciones.asp?v=18&torneo=4211&jornada='+str(jornada)
+        return get_info(url)
+    elif equipo == 'alev':
+        jornada = get_jornada(jornada)
+        url = 'http://competicio.fcvoleibol.cat/competiciones.asp?v=18&torneo=4209&jornada='+str(jornada)
+        return get_info(url)
+    elif equipo == 'aleb':
+        jornada = get_jornada(jornada)
+        url = 'http://competicio.fcvoleibol.cat/competiciones.asp?v=18&torneo=4214&jornada='+str(jornada)
+        return get_info(url)
+    elif equipo == 'infn':
         jornada = get_jornada(jornada)
         url = 'http://competicio.fcvoleibol.cat/competiciones.asp?v=18&torneo=4050&jornada='+str(jornada)
         return get_info(url)
@@ -79,13 +91,21 @@ def get_url(equipo):
         jornada = get_jornada(jornada)
         url = 'http://competicio.fcvoleibol.cat/competiciones.asp?v=18&torneo=4091&jornada='+str(jornada)
         return get_info(url)
+    elif equipo == 'vet':
+        jornada = get_jornada(jornada)
+        url = 'http://competicio.fcvoleibol.cat/competiciones.asp?v=18&torneo=4202&jornada='+str(jornada)
+        return get_info(url)
+    elif equipo == 'mas':
+        jornada = get_jornada(jornada)
+        url = 'http://competicio.fcvoleibol.cat/competiciones.asp?v=18&torneo=4203&jornada='+str(jornada)
+        return get_info(url)
     else:
         jornada = get_jornada(jornada)
         url = 'http://competicio.fcvoleibol.cat/competiciones.asp?v=18&torneo=4031&jornada='+str(jornada)
         return get_info(url)
 
 def get_all_data():
-    equipos = ['infn','infv','infr','cadn','cadv','cadb','juvn','juvv','juvb','sen']
+    equipos = ['alen','alev','aleb','infn','infv','infr','cadn','cadv','cadb','juvn','juvv','juvb','vet','mas','sen']
 
     msg = ""
     for equipo in equipos:

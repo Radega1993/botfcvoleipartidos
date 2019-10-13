@@ -207,6 +207,7 @@ def main_menu_keyboard():
 def escola_menu_keyboard():
   keyboard = [[InlineKeyboardButton('Aleví Negre', callback_data='cb_alen')],
               [InlineKeyboardButton('Aleví Verd', callback_data='cb_alev')],
+              [InlineKeyboardButton('Aleví Verd', callback_data='cb_aleb')],
               [InlineKeyboardButton('Main menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
@@ -285,28 +286,30 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_alen,
                                                             pattern='cb_alen'))
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_alev,
-                                                        pattern='cb_alev'))
+                                                            pattern='cb_alev'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(print_data_alev,
+                                                            pattern='cb_aleb'))
 
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_infn,
                                                             pattern='cb_infn'))
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_infv,
                                                             pattern='cb_infv'))
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_infb,
-                                                        pattern='cb_infb'))
+                                                            pattern='cb_infb'))
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_infr,
                                                             pattern='cb_infr'))
 
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_cadn,
                                                             pattern='cb_cadn'))
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_cadv,
-                                                        pattern='cb_cadv'))
+                                                            pattern='cb_cadv'))
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_cadb,
                                                             pattern='cb_cadb'))
 
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_juvn,
                                                             pattern='cb_juvn'))
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_juvv,
-                                                        pattern='cb_juvv'))
+                                                            pattern='cb_juvv'))
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_juvb,
                                                             pattern='cb_juvb'))
 
@@ -314,7 +317,7 @@ def main():
                                                             pattern='cb_sen'))
 
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_vet,
-                                                        pattern='cb_vet'))
+                                                            pattern='cb_vet'))
     updater.dispatcher.add_handler(CallbackQueryHandler(print_data_mas,
                                                             pattern='cb_mas'))
 
